@@ -1,6 +1,6 @@
 webpackJsonp([0],{
 
-/***/ 107:
+/***/ 108:
 /***/ (function(module, exports) {
 
 function webpackEmptyAsyncContext(req) {
@@ -13,11 +13,11 @@ function webpackEmptyAsyncContext(req) {
 webpackEmptyAsyncContext.keys = function() { return []; };
 webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
 module.exports = webpackEmptyAsyncContext;
-webpackEmptyAsyncContext.id = 107;
+webpackEmptyAsyncContext.id = 108;
 
 /***/ }),
 
-/***/ 148:
+/***/ 149:
 /***/ (function(module, exports) {
 
 function webpackEmptyAsyncContext(req) {
@@ -30,7 +30,7 @@ function webpackEmptyAsyncContext(req) {
 webpackEmptyAsyncContext.keys = function() { return []; };
 webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
 module.exports = webpackEmptyAsyncContext;
-webpackEmptyAsyncContext.id = 148;
+webpackEmptyAsyncContext.id = 149;
 
 /***/ }),
 
@@ -80,7 +80,7 @@ TabsPage = __decorate([
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AboutPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(30);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -115,7 +115,7 @@ AboutPage = __decorate([
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ContactPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(30);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -150,7 +150,8 @@ ContactPage = __decorate([
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HomePage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_ble__ = __webpack_require__(265);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -163,22 +164,43 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var HomePage = (function () {
-    function HomePage(alertCtrl, navCtrl) {
+    function HomePage(alertCtrl, ble, navCtrl) {
+        var _this = this;
         this.alertCtrl = alertCtrl;
+        this.ble = ble;
         this.navCtrl = navCtrl;
+        this.payload = {
+            trapped: null,
+            injured: null,
+            pong: null,
+            walk: null,
+            people: null,
+            alone: null
+        };
+        ble
+            .isEnabled()
+            .catch(function () {
+            alert('Bluetooth not enabled');
+        })
+            .then(function () {
+            alert('Bluetooth ENABLED! WOO HOO!!!');
+        });
         this.alertCtrl.create({
             message: 'Are you trapped?',
             buttons: [
                 {
                     text: 'Yes',
                     handler: function () {
+                        _this.payload.trapped = true;
                         injuredPrompt.present();
                     }
                 },
                 {
                     text: 'No',
                     handler: function () {
+                        _this.payload.trapped = false;
                         injuredPrompt.present();
                     }
                 }
@@ -190,12 +212,14 @@ var HomePage = (function () {
                 {
                     text: 'Yes',
                     handler: function () {
+                        _this.payload.injured = true;
                         pongPrompt.present();
                     }
                 },
                 {
                     text: 'No',
                     handler: function () {
+                        _this.payload.injured = false;
                         pongPrompt.present();
                     }
                 }
@@ -207,12 +231,14 @@ var HomePage = (function () {
                 {
                     text: 'Yes',
                     handler: function () {
+                        _this.payload.pong = true;
                         alonePrompt.present();
                     }
                 },
                 {
                     text: 'No',
                     handler: function () {
+                        _this.payload.pong = false;
                         alonePrompt.present();
                     }
                 }
@@ -224,11 +250,13 @@ var HomePage = (function () {
                 {
                     text: 'Yes',
                     handler: function () {
+                        _this.payload.alone = true;
                     }
                 },
                 {
                     text: 'No',
                     handler: function () {
+                        _this.payload.alone = false;
                         partyPrompt.present();
                     }
                 }
@@ -245,7 +273,8 @@ var HomePage = (function () {
             buttons: [
                 {
                     text: 'Ok',
-                    handler: function () {
+                    handler: function (data) {
+                        _this.payload.people = data.people;
                         walkPrompt.present();
                     }
                 }
@@ -257,12 +286,14 @@ var HomePage = (function () {
                 {
                     text: 'Yes',
                     handler: function () {
+                        _this.payload.walk = true;
                         //                      injuredPrompt.present();
                     }
                 },
                 {
                     text: 'No',
                     handler: function () {
+                        _this.payload.walk = false;
                         //                      injuredPrompt.present();
                     }
                 }
@@ -273,12 +304,11 @@ var HomePage = (function () {
 }());
 HomePage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'page-home',template:/*ion-inline-start:"/Users/max/Documents/projects/findM3/src/pages/home/home.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title>Home</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <h2>Are you trapped?</h2>\n</ion-content>\n'/*ion-inline-end:"/Users/max/Documents/projects/findM3/src/pages/home/home.html"*/
+        selector: 'page-home',template:/*ion-inline-start:"/Users/max/Documents/projects/findM3/src/pages/home/home.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title>Home</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  blob\n\n  <pre>\n  {{ payload | json }}\n  </pre>\n</ion-content>\n'/*ion-inline-end:"/Users/max/Documents/projects/findM3/src/pages/home/home.html"*/
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* NavController */]) === "function" && _b || Object])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_ble__["a" /* BLE */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* NavController */]])
 ], HomePage);
 
-var _a, _b;
 //# sourceMappingURL=home.js.map
 
 /***/ }),
@@ -304,13 +334,13 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__ = __webpack_require__(29);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_component__ = __webpack_require__(256);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_about_about__ = __webpack_require__(193);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_contact_contact__ = __webpack_require__(194);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_home_home__ = __webpack_require__(195);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_tabs_tabs__ = __webpack_require__(192);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__ionic_native_status_bar__ = __webpack_require__(188);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__ionic_native_status_bar__ = __webpack_require__(189);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__ionic_native_splash_screen__ = __webpack_require__(191);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -374,8 +404,8 @@ AppModule = __decorate([
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MyApp; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(33);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(188);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(189);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(191);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_tabs_tabs__ = __webpack_require__(192);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
