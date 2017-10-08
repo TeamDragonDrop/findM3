@@ -102,7 +102,7 @@ AboutPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
         selector: 'page-about',template:/*ion-inline-start:"/Users/max/Documents/projects/findM3/src/pages/about/about.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title>\n      About\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n\n</ion-content>\n'/*ion-inline-end:"/Users/max/Documents/projects/findM3/src/pages/about/about.html"*/
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */]])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* NavController */]])
 ], AboutPage);
 
 //# sourceMappingURL=about.js.map
@@ -137,7 +137,7 @@ ContactPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
         selector: 'page-contact',template:/*ion-inline-start:"/Users/max/Documents/projects/findM3/src/pages/contact/contact.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title>\n      Contact\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content>\n  <ion-list>\n    <ion-list-header>Follow us on Twitter</ion-list-header>\n    <ion-item>\n      <ion-icon name="ionic" item-start></ion-icon>\n      @ionicframework\n    </ion-item>\n  </ion-list>\n</ion-content>\n'/*ion-inline-end:"/Users/max/Documents/projects/findM3/src/pages/contact/contact.html"*/
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */]])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* NavController */]])
 ], ContactPage);
 
 //# sourceMappingURL=contact.js.map
@@ -162,19 +162,123 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
+
 var HomePage = (function () {
-    function HomePage(navCtrl) {
+    function HomePage(alertCtrl, navCtrl) {
+        this.alertCtrl = alertCtrl;
         this.navCtrl = navCtrl;
+        this.alertCtrl.create({
+            message: 'Are you trapped?',
+            buttons: [
+                {
+                    text: 'Yes',
+                    handler: function () {
+                        injuredPrompt.present();
+                    }
+                },
+                {
+                    text: 'No',
+                    handler: function () {
+                        injuredPrompt.present();
+                    }
+                }
+            ]
+        }).present();
+        var injuredPrompt = this.alertCtrl.create({
+            message: 'Are you injured?',
+            buttons: [
+                {
+                    text: 'Yes',
+                    handler: function () {
+                        pongPrompt.present();
+                    }
+                },
+                {
+                    text: 'No',
+                    handler: function () {
+                        pongPrompt.present();
+                    }
+                }
+            ]
+        });
+        var pongPrompt = this.alertCtrl.create({
+            message: 'Can we alert first responders to your location?',
+            buttons: [
+                {
+                    text: 'Yes',
+                    handler: function () {
+                        alonePrompt.present();
+                    }
+                },
+                {
+                    text: 'No',
+                    handler: function () {
+                        alonePrompt.present();
+                    }
+                }
+            ]
+        });
+        var alonePrompt = this.alertCtrl.create({
+            message: 'Are you alone?',
+            buttons: [
+                {
+                    text: 'Yes',
+                    handler: function () {
+                    }
+                },
+                {
+                    text: 'No',
+                    handler: function () {
+                        partyPrompt.present();
+                    }
+                }
+            ]
+        });
+        var partyPrompt = this.alertCtrl.create({
+            message: 'How many in your party?',
+            inputs: [
+                {
+                    name: 'people',
+                    placeholder: 'People'
+                },
+            ],
+            buttons: [
+                {
+                    text: 'Ok',
+                    handler: function () {
+                        walkPrompt.present();
+                    }
+                }
+            ]
+        });
+        var walkPrompt = this.alertCtrl.create({
+            message: 'Can you walk?',
+            buttons: [
+                {
+                    text: 'Yes',
+                    handler: function () {
+                        //                      injuredPrompt.present();
+                    }
+                },
+                {
+                    text: 'No',
+                    handler: function () {
+                        //                      injuredPrompt.present();
+                    }
+                }
+            ]
+        });
     }
     return HomePage;
 }());
 HomePage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'page-home',template:/*ion-inline-start:"/Users/max/Documents/projects/findM3/src/pages/home/home.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title>Home</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <h2>Welcome to Ionic!</h2>\n  <p>\n    This starter project comes with simple tabs-based layout for apps\n    that are going to primarily use a Tabbed UI.\n  </p>\n  <p>\n    Take a look at the <code>src/pages/</code> directory to add or change tabs,\n    update any existing page or create new pages.\n  </p>\n</ion-content>\n'/*ion-inline-end:"/Users/max/Documents/projects/findM3/src/pages/home/home.html"*/
+        selector: 'page-home',template:/*ion-inline-start:"/Users/max/Documents/projects/findM3/src/pages/home/home.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title>Home</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <h2>Are you trapped?</h2>\n</ion-content>\n'/*ion-inline-end:"/Users/max/Documents/projects/findM3/src/pages/home/home.html"*/
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */]])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* NavController */]) === "function" && _b || Object])
 ], HomePage);
 
+var _a, _b;
 //# sourceMappingURL=home.js.map
 
 /***/ }),
@@ -240,11 +344,11 @@ AppModule = __decorate([
         ],
         imports: [
             __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__["a" /* BrowserModule */],
-            __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["c" /* IonicModule */].forRoot(__WEBPACK_IMPORTED_MODULE_3__app_component__["a" /* MyApp */], {}, {
+            __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["d" /* IonicModule */].forRoot(__WEBPACK_IMPORTED_MODULE_3__app_component__["a" /* MyApp */], {}, {
                 links: []
             })
         ],
-        bootstrap: [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["a" /* IonicApp */]],
+        bootstrap: [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["b" /* IonicApp */]],
         entryComponents: [
             __WEBPACK_IMPORTED_MODULE_3__app_component__["a" /* MyApp */],
             __WEBPACK_IMPORTED_MODULE_4__pages_about_about__["a" /* AboutPage */],
@@ -255,7 +359,7 @@ AppModule = __decorate([
         providers: [
             __WEBPACK_IMPORTED_MODULE_8__ionic_native_status_bar__["a" /* StatusBar */],
             __WEBPACK_IMPORTED_MODULE_9__ionic_native_splash_screen__["a" /* SplashScreen */],
-            { provide: __WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* ErrorHandler */], useClass: __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["b" /* IonicErrorHandler */] }
+            { provide: __WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* ErrorHandler */], useClass: __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["c" /* IonicErrorHandler */] }
         ]
     })
 ], AppModule);
@@ -303,7 +407,7 @@ var MyApp = (function () {
 MyApp = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({template:/*ion-inline-start:"/Users/max/Documents/projects/findM3/src/app/app.html"*/'<ion-nav [root]="rootPage"></ion-nav>\n'/*ion-inline-end:"/Users/max/Documents/projects/findM3/src/app/app.html"*/
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* Platform */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */], __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */]])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* Platform */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */], __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */]])
 ], MyApp);
 
 //# sourceMappingURL=app.component.js.map
